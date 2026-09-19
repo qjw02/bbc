@@ -1,0 +1,9 @@
+{
+  "evals": [
+    {"name":"true_breakout","expected":"LONG BIAS","notes":"BTC/ETH 1h acceptance + retest + healthy volume/OI; macro not risk-off."},
+    {"name":"false_breakout_squeeze","expected":"WAIT","notes":"Resistance wick, short liquidations, OI falls, then price loses level."},
+    {"name":"post_liquidation_oversold","expected":"WAIT","notes":"Sharp dump into support with OI collapse; do not chase short."},
+    {"name":"bearish_news_price_refuses_down","expected":"WAIT_OR_LONG_AFTER_CONFIRMATION","notes":"Macro headline bearish but support holds/reclaims; price resilience matters."},
+    {"name":"jpy_carry_unwind","expected":"WAIT_OR_SHORT_AFTER_PRICE_CONFIRMATION","notes":"JGB rises, US-JP spread compresses fast, JPY surges, equities and BTC weaken."}
+  ]
+}
