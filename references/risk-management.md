@@ -1,15 +1,21 @@
-# Risk Management
+# 风险与输出契约
 
-Decision support only; no automatic execution.
+## 决策顺序
 
-Prefer one high-quality setup over multiple marginal setups. Never lower entry standards merely to get filled.
+数据有效性 → 关键观察/覆盖 → 事件黑窗 → 瀑布/去杠杆 → 扫单/假突破 → 1H 确认 → 4H 方向 → 15m 配合 → 宏观与拥挤 → 位置 → 成交量 → 扣费后收益风险。
 
-Avoid:
-- chasing extended price
-- shorting directly into major support after liquidation
-- longing directly into resistance after a squeeze
-- placing invalidation exactly on the most obvious liquidity level
+WAIT 和 STRUCTURE CHANGE 均 `plan=null`。结构改变只提示观察，不附带候选订单。LONG BIAS/SHORT BIAS 也只是条件分析，计划不含数量、杠杆、交易所执行接口。
 
-Invalidation must represent structural failure, not an arbitrary percentage.
+## 一个条件计划
 
-If macro and price disagree, reduce confidence and wait for price confirmation. If data is stale, conflicting or missing, return WAIT rather than fabricate certainty.
+entry_zone 按低到高排列；trigger 是回踩/反弹进入区间后新 15m 收盘守住关键位；invalidation 是预先明确的结构止损界限。1H 收回关键位、数据/宏观变化或下一次 1H 收盘，都要求取消旧分析并重新计算，不等待硬失效价格才复核。
+
+TP1 先取前方最近已确认摆动位。以整个入场区的最差成交价评估，扣除可配置 roundtrip_cost_bps（默认 12bp）后，净收益 /（止损距离+成本）至少 1.5。TP2 是下一摆动位；无可见结构时使用至少 3R 投影，并标记 `R projection, not observed liquidity`。投影不是已观察流动性池。
+
+多头满足 stop < zone_low ≤ zone_high < TP1 < TP2，空头方向相反。系统不会越过更近的结构障碍硬凑高盈亏比。报价超过距离门槛则 WAIT，不能借缩短止损追价。
+
+## 风险披露
+
+main_risk 汇总主宏观风险、MOF、期权、资金阻力与数据缺口。高影响事件标记 `event_risk=1` 时全部等待；上游负责结合明确事件时间维护该 flag，不能依赖过期事件自动猜测。
+
+失效位不保证实际成交价格；极端行情、滑点、费用变化、跨交易所价差会影响计划。第一版不做仓位管理与绩效承诺。BTC 与 ETH 高度相关，用户若同时评估两者应人工审视总敞口，不能视为独立风险额度。

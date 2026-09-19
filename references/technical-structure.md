@@ -1,16 +1,30 @@
-# Technical Structure
+# 技术结构
 
-Use 15m for execution, 1h for confirmation, and 4h for directional context.
+## 三周期职责
 
-Structural levels are state, not constants. Recompute after confirmed breakouts/breakdowns, new swing highs/lows, or regime changes.
+4H 是趋势过滤器；1H 是结构与突破确认；15m 是条件入场定时。每个周期至少 30 根连续已收盘 K 线，时间用 UTC 收盘时间。未收盘或未来 K 线不参与指标。趋势使用 EMA8/21 的相对位置、EMA8 最近三根斜率，以及 0.1 ATR 的最小分离，属于 v1 趋势代理而非完整人工波浪标注。
 
-## Bullish
-Higher highs/higher lows on 1h/4h; resistance breaks with 1h acceptance; retest holds.
+## 动态关键位与因果性
 
-## Bearish
-Lower highs/lower lows on 1h/4h; support breaks with 1h acceptance; retest fails.
+对 1H 数据先移除最后两根，再取此前 20 根最高/最低作为待测试阻力/支撑。由突破前历史计算 ATR14，用于缓冲与入场距离。这样突破本身不会抬高正在测试的阻力。另计算左右各两根确认的局部摆动点；未出现右侧收盘的 pivot 不存在，避免未来泄漏。
 
-## Range
-Avoid entries near the midpoint. Prefer liquidity sweep/reclaim at range edges.
+滚动窗口每次分析更新。输出包含 support/resistance/atr/levels；4H 已确认摆动点用于判断目标前是否有反向结构。每轮固定两根确认窗口，过旧突破不永久有效；如果错过，等待新结构。历史 BTC/ETH 示例只作展示，代码不读取这些水平。
 
-BTC and ETH should confirm each other when possible, but relative strength matters. Do not blindly transfer BTC direction to ETH.
+## 突破判定
+
+第一根 1H 收盘越过关键位 0.1 ATR；第二根 1H 收盘仍位于突破侧缓冲以外，并满足二者之一：
+
+- 延续：收盘价进一步顺突破方向推进。
+- 回踩：低点/高点触及关键位 ±0.4 ATR，收盘重新站稳突破侧。
+
+突破根成交量需达到历史均量的 1.1 倍。量能基于同一场所/币对/计价口径，不能混用现货与合约量。
+
+第一根收盘突破、第二根收回原区间为假突破。任一测试根影线穿越缓冲后收回原区间为流动性扫单代理；仅凭 OHLC 无法证明实际止损单成交。扫单/假突破不立即反手，WAIT 等待新确认。
+
+确认方向若与 4H 不符，输出 STRUCTURE CHANGE，计划为空；这不等同于宣称 4H 反转完成。15m 不配合则 WAIT。宏观状态切换单独记录在 macro.changed，不自动等同价格结构切换。
+
+## 吸引力与计划
+
+最新报价距突破位不超过 0.65 ATR 且仍在突破侧。首选区是关键位 ±0.15 ATR；硬失效位在反向 0.75 ATR。计划要求报价回到区间并有新 15m 收盘守住关键位。当前数据仅确认可规划，不能把尚未发生的 15m 触发写成成交。
+
+最近历史摆动目标优先；其扣费后 TP1 盈亏比不足 1.5 则 WAIT。没有可见摆动目标才用明确标为 R projection 的投影。边界与成本详见风险管理；所有参数可配置。

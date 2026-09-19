@@ -1,0 +1,757 @@
+{
+  "version": 1,
+  "quote_max_age_seconds": 120,
+  "minimum_coverage": 0.55,
+  "required_metrics": [
+    "ust2y_change_bp_1d",
+    "tips10y_change_bp_1d",
+    "dxy_change_pct_1d",
+    "nasdaq_change_pct_1d",
+    "vix",
+    "usdjpy_change_pct_1h",
+    "oi_change_pct_1h",
+    "funding_pct_8h",
+    "liquidations_z_1h"
+  ],
+  "technical": {
+    "lookback": 20,
+    "atr_period": 14,
+    "minimum_candles": 30,
+    "breakout_buffer_atr": 0.1,
+    "retest_tolerance_atr": 0.4,
+    "entry_half_width_atr": 0.15,
+    "stop_buffer_atr": 0.75,
+    "max_distance_atr": 0.65,
+    "min_volume_ratio": 1.1,
+    "min_rr": 1.5,
+    "tp2_r": 3
+  },
+  "roundtrip_cost_bps": 12,
+  "derivatives": {
+    "waterfall_pct": 4,
+    "crowded_oi_pct": 5,
+    "crowded_funding_pct": 0.05,
+    "iv_warning": 85,
+    "skew_warning_pp": 10,
+    "cme_oi_warning_pct": 5,
+    "max_flow_headwinds": 3
+  },
+  "illustrative_levels_only": {
+    "BTC": [
+      79300,
+      77800
+    ],
+    "ETH": [
+      2500,
+      2430
+    ],
+    "enabled": false,
+    "note": "Historical examples only. Never consumed by structure/signal engine."
+  },
+  "metrics": {
+    "fed_hawkish": {
+      "unit": "flag",
+      "horizon": "event",
+      "max_age_hours": 24,
+      "min": 0,
+      "max": 1
+    },
+    "boj_hawkish": {
+      "unit": "flag",
+      "horizon": "event",
+      "max_age_hours": 24,
+      "min": 0,
+      "max": 1
+    },
+    "mof_intervention": {
+      "unit": "flag",
+      "horizon": "event",
+      "max_age_hours": 24,
+      "min": 0,
+      "max": 1
+    },
+    "mof_rate_check": {
+      "unit": "flag",
+      "horizon": "event",
+      "max_age_hours": 24,
+      "min": 0,
+      "max": 1
+    },
+    "war_risk": {
+      "unit": "flag",
+      "horizon": "event",
+      "max_age_hours": 24,
+      "min": 0,
+      "max": 1
+    },
+    "event_risk": {
+      "unit": "flag",
+      "horizon": "event",
+      "max_age_hours": 24,
+      "min": 0,
+      "max": 1
+    },
+    "ust2y_pct": {
+      "unit": "pct",
+      "horizon": "spot",
+      "max_age_hours": 96
+    },
+    "ust10y_pct": {
+      "unit": "pct",
+      "horizon": "spot",
+      "max_age_hours": 96
+    },
+    "tips10y_real_pct": {
+      "unit": "pct",
+      "horizon": "spot",
+      "max_age_hours": 96
+    },
+    "jgb2y_pct": {
+      "unit": "pct",
+      "horizon": "spot",
+      "max_age_hours": 96
+    },
+    "jgb10y_pct": {
+      "unit": "pct",
+      "horizon": "spot",
+      "max_age_hours": 96
+    },
+    "jgb30y_pct": {
+      "unit": "pct",
+      "horizon": "spot",
+      "max_age_hours": 96
+    },
+    "jgb40y_pct": {
+      "unit": "pct",
+      "horizon": "spot",
+      "max_age_hours": 96
+    },
+    "ust2y_change_bp_1d": {
+      "unit": "bp",
+      "horizon": "1d",
+      "max_age_hours": 96
+    },
+    "ust10y_change_bp_1d": {
+      "unit": "bp",
+      "horizon": "1d",
+      "max_age_hours": 96
+    },
+    "tips10y_change_bp_1d": {
+      "unit": "bp",
+      "horizon": "1d",
+      "max_age_hours": 96
+    },
+    "jgb2y_change_bp_1d": {
+      "unit": "bp",
+      "horizon": "1d",
+      "max_age_hours": 96
+    },
+    "jgb10y_change_bp_1d": {
+      "unit": "bp",
+      "horizon": "1d",
+      "max_age_hours": 96
+    },
+    "jgb30y_change_bp_1d": {
+      "unit": "bp",
+      "horizon": "1d",
+      "max_age_hours": 96
+    },
+    "jgb40y_change_bp_1d": {
+      "unit": "bp",
+      "horizon": "1d",
+      "max_age_hours": 96
+    },
+    "hy_spread_change_bp_1d": {
+      "unit": "bp",
+      "horizon": "1d",
+      "max_age_hours": 96
+    },
+    "ig_spread_change_bp_1d": {
+      "unit": "bp",
+      "horizon": "1d",
+      "max_age_hours": 96
+    },
+    "ust_jgb_2y_change_bp_1h": {
+      "unit": "bp",
+      "horizon": "1h",
+      "max_age_hours": 2
+    },
+    "ust_jgb_10y_change_bp_1h": {
+      "unit": "bp",
+      "horizon": "1h",
+      "max_age_hours": 2
+    },
+    "ust_jgb_2y_change_bp_4h": {
+      "unit": "bp",
+      "horizon": "4h",
+      "max_age_hours": 6
+    },
+    "ust_jgb_10y_change_bp_4h": {
+      "unit": "bp",
+      "horizon": "4h",
+      "max_age_hours": 6
+    },
+    "ust_jgb_2y_change_bp_24h": {
+      "unit": "bp",
+      "horizon": "24h",
+      "max_age_hours": 96
+    },
+    "ust_jgb_10y_change_bp_24h": {
+      "unit": "bp",
+      "horizon": "24h",
+      "max_age_hours": 96
+    },
+    "ust_jgb_2y_change_bp_5d": {
+      "unit": "bp",
+      "horizon": "5d",
+      "max_age_hours": 192
+    },
+    "ust_jgb_10y_change_bp_5d": {
+      "unit": "bp",
+      "horizon": "5d",
+      "max_age_hours": 192
+    },
+    "ust_jgb_2y_change_bp_20d": {
+      "unit": "bp",
+      "horizon": "20d",
+      "max_age_hours": 768
+    },
+    "ust_jgb_10y_change_bp_20d": {
+      "unit": "bp",
+      "horizon": "20d",
+      "max_age_hours": 768
+    },
+    "dxy_change_pct_1d": {
+      "unit": "pct",
+      "horizon": "1d",
+      "max_age_hours": 96
+    },
+    "nasdaq_change_pct_1d": {
+      "unit": "pct",
+      "horizon": "1d",
+      "max_age_hours": 96
+    },
+    "sp500_change_pct_1d": {
+      "unit": "pct",
+      "horizon": "1d",
+      "max_age_hours": 96
+    },
+    "nikkei_change_pct_1d": {
+      "unit": "pct",
+      "horizon": "1d",
+      "max_age_hours": 96
+    },
+    "topix_change_pct_1d": {
+      "unit": "pct",
+      "horizon": "1d",
+      "max_age_hours": 96
+    },
+    "gold_change_pct_1d": {
+      "unit": "pct",
+      "horizon": "1d",
+      "max_age_hours": 96
+    },
+    "oil_change_pct_1d": {
+      "unit": "pct",
+      "horizon": "1d",
+      "max_age_hours": 96
+    },
+    "usdjpy_change_pct_1h": {
+      "unit": "pct",
+      "horizon": "1h",
+      "max_age_hours": 2
+    },
+    "oi_change_pct_1h": {
+      "unit": "pct",
+      "horizon": "1h",
+      "max_age_hours": 2
+    },
+    "price_change_pct_1h": {
+      "unit": "pct",
+      "horizon": "1h",
+      "max_age_hours": 2
+    },
+    "usdjpy_change_pct_4h": {
+      "unit": "pct",
+      "horizon": "4h",
+      "max_age_hours": 6
+    },
+    "jpy_iv_change_pp_1d": {
+      "unit": "pp",
+      "horizon": "1d",
+      "max_age_hours": 96
+    },
+    "vix": {
+      "unit": "index",
+      "horizon": "spot",
+      "max_age_hours": 96,
+      "min": 0
+    },
+    "move": {
+      "unit": "index",
+      "horizon": "spot",
+      "max_age_hours": 96,
+      "min": 0
+    },
+    "hy_spread_bp": {
+      "unit": "bp",
+      "horizon": "spot",
+      "max_age_hours": 96,
+      "min": 0
+    },
+    "ig_spread_bp": {
+      "unit": "bp",
+      "horizon": "spot",
+      "max_age_hours": 96,
+      "min": 0
+    },
+    "jpy_iv_pct": {
+      "unit": "pct",
+      "horizon": "spot",
+      "max_age_hours": 2,
+      "min": 0
+    },
+    "options_atm_iv_pct": {
+      "unit": "pct",
+      "horizon": "spot",
+      "max_age_hours": 2,
+      "min": 0
+    },
+    "funding_pct_8h": {
+      "unit": "pct",
+      "horizon": "8h_normalized",
+      "max_age_hours": 2
+    },
+    "liquidations_usd_m_1h": {
+      "unit": "USD_m",
+      "horizon": "1h",
+      "max_age_hours": 2,
+      "min": 0
+    },
+    "liquidations_z_1h": {
+      "unit": "zscore",
+      "horizon": "1h",
+      "max_age_hours": 2
+    },
+    "options_skew_put_minus_call_pp": {
+      "unit": "pp",
+      "horizon": "spot",
+      "max_age_hours": 2
+    },
+    "options_term_slope_pp": {
+      "unit": "pp",
+      "horizon": "spot",
+      "max_age_hours": 2
+    },
+    "options_expiry_hours": {
+      "unit": "hours",
+      "horizon": "spot",
+      "max_age_hours": 2,
+      "min": 0
+    },
+    "options_gamma_usd_m": {
+      "unit": "USD_m",
+      "horizon": "spot",
+      "max_age_hours": 2
+    },
+    "options_oi_usd_m": {
+      "unit": "USD_m",
+      "horizon": "spot",
+      "max_age_hours": 2,
+      "min": 0
+    },
+    "etf_flow_usd_m": {
+      "unit": "USD_m",
+      "horizon": "1d",
+      "max_age_hours": 120
+    },
+    "stablecoin_change_pct_7d": {
+      "unit": "pct",
+      "horizon": "7d",
+      "max_age_hours": 192
+    },
+    "stablecoin_exchange_change_usd_m_1d": {
+      "unit": "USD_m",
+      "horizon": "1d",
+      "max_age_hours": 48
+    },
+    "cme_basis_annual_pct": {
+      "unit": "pct",
+      "horizon": "annualized",
+      "max_age_hours": 96
+    },
+    "cme_oi_change_pct_1d": {
+      "unit": "pct",
+      "horizon": "1d",
+      "max_age_hours": 96
+    },
+    "coinbase_premium_pct": {
+      "unit": "pct",
+      "horizon": "spot",
+      "max_age_hours": 2
+    },
+    "fed_assets_change_usd_bn_7d": {
+      "unit": "USD_bn",
+      "horizon": "7d",
+      "max_age_hours": 240
+    },
+    "tga_change_usd_bn_7d": {
+      "unit": "USD_bn",
+      "horizon": "7d",
+      "max_age_hours": 240
+    },
+    "rrp_change_usd_bn_7d": {
+      "unit": "USD_bn",
+      "horizon": "7d",
+      "max_age_hours": 240
+    },
+    "us_m2_change_pct_1m": {
+      "unit": "pct",
+      "horizon": "1m",
+      "max_age_hours": 1440
+    },
+    "global_m2_change_pct_1m": {
+      "unit": "pct",
+      "horizon": "1m",
+      "max_age_hours": 1440
+    }
+  },
+  "carry": {
+    "yen": [
+      [
+        "usdjpy_change_pct_1h",
+        "<=",
+        -0.7
+      ],
+      [
+        "usdjpy_change_pct_4h",
+        "<=",
+        -1.2
+      ]
+    ],
+    "funding": [
+      [
+        "jgb10y_change_bp_1d",
+        ">=",
+        8
+      ],
+      [
+        "jgb30y_change_bp_1d",
+        ">=",
+        12
+      ],
+      [
+        "jgb40y_change_bp_1d",
+        ">=",
+        15
+      ],
+      [
+        "ust_jgb_10y_change_bp_1h",
+        "<=",
+        -8
+      ],
+      [
+        "ust_jgb_2y_change_bp_4h",
+        "<=",
+        -12
+      ],
+      [
+        "jpy_iv_change_pp_1d",
+        ">=",
+        3
+      ],
+      [
+        "boj_hawkish",
+        ">=",
+        1
+      ]
+    ],
+    "contagion": [
+      [
+        "nikkei_change_pct_1d",
+        "<=",
+        -1.5
+      ],
+      [
+        "topix_change_pct_1d",
+        "<=",
+        -1.5
+      ],
+      [
+        "nasdaq_change_pct_1d",
+        "<=",
+        -1
+      ],
+      [
+        "oi_change_pct_1h",
+        "<=",
+        -3
+      ],
+      [
+        "price_change_pct_1h",
+        "<=",
+        -1
+      ]
+    ],
+    "min_funding": 2,
+    "min_contagion": 2
+  },
+  "regimes": {
+    "Credit Stress": {
+      "minimum_hits": 3,
+      "rules": [
+        [
+          "hy_spread_change_bp_1d",
+          ">=",
+          25
+        ],
+        [
+          "ig_spread_change_bp_1d",
+          ">=",
+          10
+        ],
+        [
+          "vix",
+          ">=",
+          28
+        ],
+        [
+          "move",
+          ">=",
+          130
+        ]
+      ],
+      "required": [
+        [
+          "hy_spread_change_bp_1d",
+          ">=",
+          25
+        ]
+      ]
+    },
+    "War/Oil Shock": {
+      "minimum_hits": 2,
+      "rules": [
+        [
+          "war_risk",
+          ">=",
+          1
+        ],
+        [
+          "oil_change_pct_1d",
+          ">=",
+          5
+        ],
+        [
+          "gold_change_pct_1d",
+          ">=",
+          1.5
+        ]
+      ],
+      "required": [
+        [
+          "war_risk",
+          ">=",
+          1
+        ],
+        [
+          "oil_change_pct_1d",
+          ">=",
+          5
+        ]
+      ]
+    },
+    "Inflation Shock": {
+      "minimum_hits": 3,
+      "rules": [
+        [
+          "oil_change_pct_1d",
+          ">=",
+          3
+        ],
+        [
+          "ust10y_change_bp_1d",
+          ">=",
+          10
+        ],
+        [
+          "tips10y_change_bp_1d",
+          ">=",
+          5
+        ],
+        [
+          "nasdaq_change_pct_1d",
+          "<=",
+          -1
+        ]
+      ],
+      "required": []
+    },
+    "Fed Tightening Shock": {
+      "minimum_hits": 3,
+      "rules": [
+        [
+          "fed_hawkish",
+          ">=",
+          1
+        ],
+        [
+          "ust2y_change_bp_1d",
+          ">=",
+          10
+        ],
+        [
+          "tips10y_change_bp_1d",
+          ">=",
+          5
+        ],
+        [
+          "dxy_change_pct_1d",
+          ">=",
+          0.5
+        ]
+      ],
+      "required": [
+        [
+          "ust2y_change_bp_1d",
+          ">=",
+          10
+        ]
+      ]
+    },
+    "Crypto-native Leverage Flush": {
+      "minimum_hits": 3,
+      "rules": [
+        [
+          "oi_change_pct_1h",
+          "<=",
+          -6
+        ],
+        [
+          "liquidations_z_1h",
+          ">=",
+          3
+        ],
+        [
+          "price_change_pct_1h",
+          "<=",
+          -3
+        ]
+      ],
+      "required": [
+        [
+          "oi_change_pct_1h",
+          "<=",
+          -6
+        ],
+        [
+          "liquidations_z_1h",
+          ">=",
+          3
+        ],
+        [
+          "price_change_pct_1h",
+          "<=",
+          -3
+        ]
+      ]
+    },
+    "Liquidity Risk-On": {
+      "minimum_hits": 4,
+      "rules": [
+        [
+          "fed_assets_change_usd_bn_7d",
+          ">=",
+          10
+        ],
+        [
+          "tga_change_usd_bn_7d",
+          "<=",
+          -10
+        ],
+        [
+          "rrp_change_usd_bn_7d",
+          "<=",
+          -10
+        ],
+        [
+          "stablecoin_change_pct_7d",
+          ">=",
+          1
+        ],
+        [
+          "etf_flow_usd_m",
+          ">=",
+          100
+        ],
+        [
+          "dxy_change_pct_1d",
+          "<=",
+          -0.3
+        ]
+      ],
+      "required": [
+        [
+          "stablecoin_change_pct_7d",
+          ">=",
+          1
+        ]
+      ]
+    },
+    "Normal Risk-On": {
+      "minimum_hits": 3,
+      "rules": [
+        [
+          "nasdaq_change_pct_1d",
+          ">=",
+          0.5
+        ],
+        [
+          "sp500_change_pct_1d",
+          ">=",
+          0.3
+        ],
+        [
+          "vix",
+          "<=",
+          20
+        ],
+        [
+          "dxy_change_pct_1d",
+          "<=",
+          0
+        ],
+        [
+          "tips10y_change_bp_1d",
+          "<=",
+          0
+        ]
+      ],
+      "required": [
+        [
+          "nasdaq_change_pct_1d",
+          ">=",
+          0.5
+        ]
+      ]
+    }
+  },
+  "regime_priority": [
+    "Credit Stress",
+    "Carry Trade Unwind",
+    "War/Oil Shock",
+    "Fed Tightening Shock",
+    "Inflation Shock",
+    "Crypto-native Leverage Flush",
+    "Liquidity Risk-On",
+    "Normal Risk-On"
+  ],
+  "risk_off_regimes": [
+    "Credit Stress",
+    "Carry Trade Unwind",
+    "War/Oil Shock",
+    "Fed Tightening Shock",
+    "Inflation Shock",
+    "Crypto-native Leverage Flush"
+  ]
+}

@@ -1,9 +1,123 @@
 {
-  "evals": [
-    {"name":"true_breakout","expected":"LONG BIAS","notes":"BTC/ETH 1h acceptance + retest + healthy volume/OI; macro not risk-off."},
-    {"name":"false_breakout_squeeze","expected":"WAIT","notes":"Resistance wick, short liquidations, OI falls, then price loses level."},
-    {"name":"post_liquidation_oversold","expected":"WAIT","notes":"Sharp dump into support with OI collapse; do not chase short."},
-    {"name":"bearish_news_price_refuses_down","expected":"WAIT_OR_LONG_AFTER_CONFIRMATION","notes":"Macro headline bearish but support holds/reclaims; price resilience matters."},
-    {"name":"jpy_carry_unwind","expected":"WAIT_OR_SHORT_AFTER_PRICE_CONFIRMATION","notes":"JGB rises, US-JP spread compresses fast, JPY surges, equities and BTC weaken."}
+  "schema_version": 1,
+  "synthetic": true,
+  "base_fixture": "fixtures/true_breakout.json",
+  "cases": [
+    {
+      "id": "true_breakout",
+      "prompt": "1H收盘突破并回踩守住，4H/15m一致，位置可接受。",
+      "expected_signal": "LONG BIAS",
+      "expected_regime": "Neutral/Range",
+      "plan": true
+    },
+    {
+      "id": "false_breakout",
+      "prompt": "第一根突破，第二根收回区间；是否追多？",
+      "mutation": "false_breakout",
+      "expected_signal": "WAIT",
+      "reason": "False breakout",
+      "plan": false
+    },
+    {
+      "id": "waterfall_oversold",
+      "prompt": "急跌爆仓后看起来超卖，能否抄底或追空？",
+      "metrics": {
+        "oi_change_pct_1h": -9,
+        "price_change_pct_1h": -5,
+        "liquidations_z_1h": 4
+      },
+      "expected_signal": "WAIT",
+      "expected_regime": "Crypto-native Leverage Flush",
+      "reason": "leverage flush",
+      "plan": false
+    },
+    {
+      "id": "bad_macro_price_refuses_to_fall",
+      "prompt": "Fed鹰派、收益率美元上涨，但价格向上突破；是否直接做空？",
+      "metrics": {
+        "fed_hawkish": 1,
+        "ust2y_change_bp_1d": 15,
+        "tips10y_change_bp_1d": 8,
+        "dxy_change_pct_1d": 0.8
+      },
+      "expected_signal": "WAIT",
+      "expected_regime": "Fed Tightening Shock",
+      "reason": "refusal to fall",
+      "plan": false
+    },
+    {
+      "id": "carry_trade_unwind",
+      "prompt": "JGB长端快升、利差压缩、日元急升、股市下跌。",
+      "metrics": {
+        "jgb10y_change_bp_1d": 12,
+        "jgb30y_change_bp_1d": 18,
+        "ust_jgb_10y_change_bp_1h": -12,
+        "usdjpy_change_pct_1h": -1,
+        "jpy_iv_change_pp_1d": 4,
+        "nikkei_change_pct_1d": -3,
+        "topix_change_pct_1d": -2.5,
+        "nasdaq_change_pct_1d": -1.5
+      },
+      "expected_signal": "WAIT",
+      "expected_regime": "Carry Trade Unwind",
+      "plan": false
+    },
+    {
+      "id": "jgb_alone_is_not_unwind",
+      "prompt": "JGB上涨但日元走弱，不能误判套息平仓。",
+      "metrics": {
+        "jgb10y_change_bp_1d": 12,
+        "jgb30y_change_bp_1d": 18,
+        "usdjpy_change_pct_1h": 0.5
+      },
+      "expected_signal": "LONG BIAS",
+      "expected_regime": "Neutral/Range",
+      "plan": true
+    },
+    {
+      "id": "no_chasing",
+      "prompt": "结构确认但报价已远离回踩区。",
+      "mutation": "chase",
+      "expected_signal": "WAIT",
+      "reason": "do not chase",
+      "plan": false
+    },
+    {
+      "id": "short_rebound",
+      "prompt": "4H下降，1H跌破后反弹确认，选择一个反弹接空区。",
+      "mutation": "mirror",
+      "expected_signal": "SHORT BIAS",
+      "plan": true
+    },
+    {
+      "id": "structure_change",
+      "prompt": "1H向上突破但4H仍下降。",
+      "mutation": "opposite_4h",
+      "expected_signal": "STRUCTURE CHANGE",
+      "plan": false
+    },
+    {
+      "id": "single_close",
+      "prompt": "仅最新1H收盘突破，尚无第二根确认。",
+      "mutation": "single_close",
+      "expected_signal": "WAIT",
+      "plan": false
+    },
+    {
+      "id": "stale_core_data",
+      "prompt": "关键OI数据过期，不把缺失当零。",
+      "mutation": "stale",
+      "expected_signal": "WAIT",
+      "reason": "missing/stale",
+      "plan": false
+    },
+    {
+      "id": "sweep",
+      "prompt": "上影线扫过关键位但两根都未有效收盘突破。",
+      "mutation": "sweep",
+      "expected_signal": "WAIT",
+      "reason": "liquidity sweep",
+      "plan": false
+    }
   ]
 }
